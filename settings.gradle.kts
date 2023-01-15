@@ -13,5 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "KotlinState"
-include(":app")
 include(":uistate")
