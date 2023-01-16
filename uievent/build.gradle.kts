@@ -1,7 +1,7 @@
 plugins {
     id("java-library")
     kotlin("jvm")
-    `maven-publish`
+    id("com.vanniktech.maven.publish") version "0.23.1"
 }
 
 java {
@@ -11,24 +11,4 @@ java {
 
 dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-}
-
-afterEvaluate {
-    publishing {
-        publications {
-            create<MavenPublication>("uievent") {
-                from(components["java"])
-                groupId = "com.github.alaksion"
-                artifactId = "kotlin-state"
-                version = "1"
-            }
-        }
-
-        repositories {
-            maven {
-                name = "KotlinUiEvent"
-                url = uri(layout.buildDirectory.dir("repo"))
-            }
-        }
-    }
 }

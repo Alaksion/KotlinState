@@ -1,4 +1,4 @@
-package br.com.alaksion.uistate
+package io.github.alaksion
 
 public sealed class UiStateType {
     object Content : UiStateType()
