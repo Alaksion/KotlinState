@@ -14,3 +14,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "KotlinState"
 include(":uistate")
+include(":uievent")
