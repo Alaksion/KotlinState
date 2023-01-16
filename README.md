@@ -8,8 +8,8 @@ Kotlin library designed to create a state management structure.
 dependencies {
     val latestVersion = "0.1.0"
 
-    implementation("io.github.alaksion:ui-state:<version-name>")
-    implementation("io.github.alaksion:ui-event:<version-name>")
+    implementation("io.github.alaksion:ui-state:$latestVersion")
+    implementation("io.github.alaksion:ui-event:$latestVersion")
 }
 
 ```
