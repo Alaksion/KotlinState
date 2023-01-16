@@ -39,19 +39,19 @@ afterEvaluate {
                 // Mostly self-explanatory metadata
                 pom {
                     name = PUBLISH_ARTIFACT_ID
-                    description = 'Stream Chat official Android SDK'
-                    url = 'https://github.com/getstream/stream-chat-android'
+                    description = 'UI State management for Kotlin.'
+                    url = 'https://github.com/Alaksion/KotlinState'
                     licenses {
                         license {
-                            name = 'Stream License'
-                            url = 'https://github.com/GetStream/stream-chat-android/blob/main/LICENSE'
+                            name = 'MIT License'
+                            url = 'https://github.com/Alaksion/KotlinState/blob/main/LICENSE'
                         }
                     }
                     developers {
                         developer {
-                            id = 'zsmb13'
-                            name = 'Márton Braun'
-                            email = 'marton@getstream.io'
+                            id = 'alaksion'
+                            name = 'Lucca Beurmann'
+                            email = 'lbeurmann.dev@gmail.com'
                         }
                         // Add all other devs here...
                     }
@@ -59,9 +59,9 @@ afterEvaluate {
                     // Version control info - if you're using GitHub, follow the
                     // format as seen here
                     scm {
-                        connection = 'scm:git:github.com/getstream/stream-chat-android.git'
-                        developerConnection = 'scm:git:ssh://github.com/getstream/stream-chat-android.git'
-                        url = 'https://github.com/getstream/stream-chat-android/tree/main'
+                        connection = 'scm:git:github.com/Alaksion/KotlinState.git'
+                        developerConnection = 'scm:git:ssh://github.com/Alaksion/KotlinState.git'
+                        url = 'https://github.com/Alaksion/KotlinState/tree/main'
                     }
                 }
             }
