@@ -1,4 +1,4 @@
-package br.com.alaksion.uievent
+package io.github.alaksion.uievent
 
 import java.util.UUID
 
