@@ -1,4 +1,4 @@
-package br.com.alaksion.uistate
+package io.github.alaksion
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

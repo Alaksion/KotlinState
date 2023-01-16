@@ -9,26 +9,9 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_7
 }
 
+group = "io.github.alaksion"
+version = "1.0.0-alpha-01"
+
 dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-}
-
-afterEvaluate {
-    publishing {
-        publications {
-            create<MavenPublication>("KotlinState") {
-                from(components["java"])
-                groupId = "com.github.alaksion"
-                artifactId = "kotlin-state"
-                version = "1"
-            }
-        }
-
-        repositories {
-            maven {
-                name = "KotlinState"
-                url = uri(layout.buildDirectory.dir("repo"))
-            }
-        }
-    }
 }
