@@ -8,11 +8,9 @@ repositories {
     gradlePluginPortal()
 }
 
-gradlePlugin {
-    plugins {
-        register("publishable-module") {
-            id = "br.com.alaksion.publishable.module"
-            implementationClass = "buildSrc.PublishModulePlugin"
-        }
-    }
+dependencies {
+    implementation(gradleApi())
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.20")
 }
+
+gradlePlugin {}
