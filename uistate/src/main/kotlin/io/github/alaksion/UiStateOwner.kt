@@ -22,19 +22,16 @@ public interface UiStateOwner<T> {
      * */
     val state: StateFlow<UiState<T>>
 
-    /**
-     * Provides a block with access to [StateUpdater] to update the state synchronously. Any
-     * unhandled exceptions will automatically set [UiState.stateType] to [UiStateType.Error].
-     *
-     * @param block Function to be evaluated by [StateUpdater] so the data can be updated.
-     * */
-    fun updateState(block: (StateUpdater<T>) -> T)
 
     /**
      * Convenience access to data <T> of the [UiState] class. Used when the [UiStateType] is not
      * relevant to the consumer class.
      * */
     val peekState: StateFlow<T>
+
+}
+
+public interface MutableUiStateOwner<T> : UiStateOwner<T> {
 
     /**
      * Provides a block with access to [StateUpdater] to update the state with support to suspend
@@ -46,9 +43,18 @@ public interface UiStateOwner<T> {
      * of the block param. True by default.
      * */
     suspend fun asyncUpdateState(
-        block: suspend (StateUpdater<T>) -> T,
         showLoading: Boolean = true,
+        block: suspend (UiStateDataUpdater<T>) -> Unit,
     )
+
+    /**
+     * Provides a block with access to [StateUpdater] to update the state synchronously. Any
+     * unhandled exceptions will automatically set [UiState.stateType] to [UiStateType.Error].
+     *
+     * @param block Function to be evaluated by [StateUpdater] so the data can be updated.
+     * */
+    fun updateState(block: (UiStateDataUpdater<T>) -> Unit)
+
 
     /**
      * Provides a block to run suspend functions that won't update the UiState. Any unhandled
@@ -59,16 +65,15 @@ public interface UiStateOwner<T> {
      * of the block param. True by default.
      * */
     suspend fun asyncCatching(
+        showLoading: Boolean = true,
         block: suspend () -> Unit,
-        showLoading: Boolean = true
     )
-
 }
 
 public class UiStateHandler<T>(
     initialData: T,
     initialType: UiStateType = UiStateType.Content,
-) : UiStateOwner<T> {
+) : MutableUiStateOwner<T> {
 
     private val mutableState = MutableStateFlow(
         UiState(
@@ -91,35 +96,38 @@ public class UiStateHandler<T>(
             initialValue = initialData
         )
 
-    override suspend fun asyncCatching(block: suspend () -> Unit, showLoading: Boolean) {
+    override suspend fun asyncCatching(
+        showLoading: Boolean,
+        block: suspend () -> Unit,
+    ) {
         kotlin.runCatching {
-            if (showLoading) updater.updateStateType(UiStateType.Loading)
+            if (showLoading) updater.updateType(UiStateType.Loading)
             block()
-            updater.updateStateType(UiStateType.Content)
+            updater.updateType(UiStateType.Content)
         }.onFailure { exception ->
-            updater.updateStateType(UiStateType.Error(exception))
+            updater.updateType(UiStateType.Error(exception))
         }
     }
 
     override suspend fun asyncUpdateState(
-        block: suspend (StateUpdater<T>) -> T,
-        showLoading: Boolean
+        showLoading: Boolean,
+        block: suspend (UiStateDataUpdater<T>) -> Unit,
     ) {
         kotlin.runCatching {
-            if (showLoading) updater.updateStateType(UiStateType.Loading)
+            if (showLoading) updater.updateType(UiStateType.Loading)
             block(updater)
-            updater.updateStateType(UiStateType.Content)
+            updater.updateType(UiStateType.Content)
         }.onFailure { exception ->
-            updater.updateStateType(UiStateType.Error(exception))
+            updater.updateType(UiStateType.Error(exception))
         }
     }
 
-    override fun updateState(block: (StateUpdater<T>) -> T) {
+    override fun updateState(block: (UiStateDataUpdater<T>) -> Unit) {
         kotlin.runCatching {
             block(updater)
-            updater.updateStateType(UiStateType.Content)
+            updater.updateType(UiStateType.Content)
         }.onFailure { exception ->
-            updater.updateStateType(UiStateType.Error(exception))
+            updater.updateType(UiStateType.Error(exception))
         }
     }
 
