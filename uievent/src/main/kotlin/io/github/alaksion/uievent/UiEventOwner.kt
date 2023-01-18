@@ -18,36 +18,38 @@ public interface UiEventOwner<T : UiEvent> {
     val eventQueue: StateFlow<List<T>>
 
     /**
-     * Adds an event to the UiEvent queue.
-     * */
-    fun sendEvent(event: T)
-
-    /**
      * Consumes an event from the UiEvent queue, removing it from the current queue.
      * */
     suspend fun consumeEvent(event: T)
 
-}
-
-/***
- * Convenience function to collect the event queue StateFlow and execute a callback for every
- * event received. Events collected by this function will be automatically disposed through the call
- * of [UiEventOwner.consumeEvent].
- *
- * @param onEventReceived Callback to be executed when a new event is added to the queue
- */
-suspend fun <T : UiEvent> UiEventOwner<T>.receiveEvents(
-    onEventReceived: (T) -> Unit
-) {
-    eventQueue.collectLatest { queue ->
-        queue.firstOrNull()?.let { event ->
-            onEventReceived(event)
-            consumeEvent(event)
+    /***
+     * Convenience function to collect the event queue StateFlow and execute a callback for every
+     * event received. Events collected by this function will be automatically disposed through the call
+     * of [UiEventOwner.consumeEvent].
+     *
+     * @param onEventReceived Callback to be executed when a new event is added to the queue
+     */
+    suspend fun <T : UiEvent> UiEventOwner<T>.receiveEvents(
+        onEventReceived: (T) -> Unit
+    ) {
+        eventQueue.collectLatest { queue ->
+            queue.firstOrNull()?.let { event ->
+                onEventReceived(event)
+                consumeEvent(event)
+            }
         }
     }
+
 }
 
-public class UiEventHandler<T : UiEvent> : UiEventOwner<T> {
+interface UiEventOwnerSender<T : UiEvent> : UiEventOwner<T> {
+    /**
+     * Adds an event to the UiEvent queue.
+     * */
+    fun sendEvent(event: T)
+}
+
+public class UiEventHandler<T : UiEvent> : UiEventOwnerSender<T> {
 
     private val mutableEventQueue = MutableStateFlow(listOf<T>())
 
