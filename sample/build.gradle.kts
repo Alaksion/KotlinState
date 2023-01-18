@@ -43,11 +43,16 @@ android {
 }
 
 dependencies {
-    implementation(platform("androidx.compose:compose-bom:2022.12.00"))
+    implementation(project(":uievent"))
+    implementation(project(":uistate"))
+
 
     implementation("androidx.core:core-ktx:1.9.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+
 
     // Compose
+    implementation(platform("androidx.compose:compose-bom:2022.12.00"))
     implementation("androidx.activity:activity-compose:1.7.0-alpha03")
     implementation("androidx.compose.foundation:foundation")
     implementation("androidx.compose.material:material")
@@ -56,7 +61,5 @@ dependencies {
 
     //Xml
     implementation("androidx.constraintlayout:constraintlayout:2.2.0-alpha05")
-
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
 
 }
