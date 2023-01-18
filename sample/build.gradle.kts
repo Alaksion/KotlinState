@@ -61,5 +61,6 @@ dependencies {
 
     //Xml
     implementation("androidx.constraintlayout:constraintlayout:2.2.0-alpha05")
+    implementation("com.google.android.material:material:1.7.0")
 
 }

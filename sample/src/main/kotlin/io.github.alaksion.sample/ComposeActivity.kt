@@ -1,6 +1,7 @@
 package io.github.alaksion.sample
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
@@ -31,6 +33,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import io.github.alaksion.UiState
 import io.github.alaksion.UiStateType
@@ -84,6 +87,8 @@ private fun ContentView(
     updateText: (String) -> Unit,
     submitName: () -> Unit
 ) {
+    val context = LocalContext.current
+
     Scaffold() {
         Column(
             modifier = Modifier
@@ -120,6 +125,16 @@ private fun ContentView(
                         Text(it, Modifier.padding(16.dp))
                     }
                 }
+            }
+            Button(
+                onClick = {
+                    context.startActivity(Intent(context, XmlActivity::class.java))
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            ) {
+                Text("Go To Xml Activity")
             }
         }
     }
