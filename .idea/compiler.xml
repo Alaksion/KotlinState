@@ -3,6 +3,7 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.7">
       <module name="KotlinState.app" target="17" />
+      <module name="KotlinState.statesample" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
