@@ -5,7 +5,8 @@ import io.github.alaksion.UiStateHandler
 import io.github.alaksion.UiStateOwner
 
 internal data class SampleState(
-    val name: String = ""
+    val name: String = "",
+    val names: List<String> = listOf()
 )
 
 internal class StateViewModel : ViewModel() {
@@ -17,6 +18,17 @@ internal class StateViewModel : ViewModel() {
         privateState.updateState { updater ->
             updater.update { currentState ->
                 currentState.copy(name = newValue)
+            }
+        }
+    }
+
+    fun submitName() {
+        privateState.updateState {
+            it.update { currentData ->
+                currentData.copy(
+                    name = "",
+                    names = currentData.names + currentData.name
+                )
             }
         }
     }

@@ -7,14 +7,25 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -34,7 +45,8 @@ class ComposeActivity : ComponentActivity() {
             val state by viewModel.publicState.state.collectAsState()
             Content(
                 state = state,
-                updateText = viewModel::updateText
+                updateText = viewModel::updateText,
+                submitName = viewModel::submitName
             )
         }
     }
@@ -45,7 +57,8 @@ class ComposeActivity : ComponentActivity() {
 @Composable
 private fun Content(
     state: UiState<SampleState>,
-    updateText: (String) -> Unit
+    updateText: (String) -> Unit,
+    submitName: () -> Unit
 ) {
 
     MaterialTheme {
@@ -53,7 +66,8 @@ private fun Content(
             UiStateType.Content -> {
                 ContentView(
                     state = state.stateData,
-                    updateText = updateText
+                    updateText = updateText,
+                    submitName = submitName
                 )
             }
 
@@ -67,23 +81,46 @@ private fun Content(
 @Composable
 private fun ContentView(
     state: SampleState,
-    updateText: (String) -> Unit
+    updateText: (String) -> Unit,
+    submitName: () -> Unit
 ) {
     Scaffold() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp),
-            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            OutlinedTextField(
+            Row(
                 modifier = Modifier.fillMaxWidth(),
-                value = state.name,
-                onValueChange = updateText,
-                label = { Text("Sample Text Field") },
-                maxLines = 1
-            )
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                OutlinedTextField(
+                    modifier = Modifier.weight(1f),
+                    value = state.name,
+                    onValueChange = updateText,
+                    label = { Text("Sample Text Field") },
+                    maxLines = 1,
+                    shape = RoundedCornerShape(64.dp)
+                )
+                IconButton(onClick = submitName) {
+                    Icon(imageVector = Icons.Default.Add, null)
+                }
+            }
+            Spacer(Modifier.height(16.dp))
+            LazyColumn(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                items(state.names) {
+                    Card(
+                        Modifier.fillMaxWidth()
+                    ) {
+                        Text(it, Modifier.padding(16.dp))
+                    }
+                }
+            }
         }
     }
 }
