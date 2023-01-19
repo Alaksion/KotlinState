@@ -37,6 +37,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import io.github.alaksion.UiState
 import io.github.alaksion.UiStateType
+import io.github.alaksion.sample.xml.XmlActivity
 
 class ComposeActivity : ComponentActivity() {
 
