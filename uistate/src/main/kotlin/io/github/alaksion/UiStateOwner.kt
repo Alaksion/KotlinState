@@ -1,13 +1,8 @@
 package io.github.alaksion
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.mapLatest
-import kotlinx.coroutines.flow.stateIn
 
 /**
  * Interface representing the base contract of an [UiStateOwner]. Can be used alongside with
@@ -23,11 +18,10 @@ public interface UiStateOwner<T> {
     val state: StateFlow<UiState<T>>
 
 
-    /**
-     * Convenience access to data <T> of the [UiState] class. Used when the [UiStateType] is not
-     * relevant to the consumer class.
+    /** Convenience access to <T> inside [UiState]
+     **
      * */
-    val peekState: StateFlow<T>
+    val stateData: T
 
 }
 
@@ -88,13 +82,10 @@ public class UiStateHandler<T>(
 
     override val state: StateFlow<UiState<T>> = mutableState.asStateFlow()
 
-    override val peekState: StateFlow<T> = mutableState
-        .mapLatest { uiState -> uiState.stateData }
-        .stateIn(
-            scope = CoroutineScope(Dispatchers.Default),
-            started = SharingStarted.WhileSubscribed(),
-            initialValue = initialData
-        )
+    override val stateData: T
+        get() {
+            return mutableState.value.stateData
+        }
 
     override suspend fun asyncCatching(
         showLoading: Boolean,

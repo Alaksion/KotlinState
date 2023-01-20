@@ -4,15 +4,15 @@ import androidx.lifecycle.ViewModel
 import io.github.alaksion.UiStateHandler
 import io.github.alaksion.UiStateOwner
 
-internal data class SampleState(
+internal data class SampleState2(
     val name: String = "",
     val names: List<String> = listOf()
 )
 
-internal class StateViewModel : ViewModel() {
+internal class PropertyViewModel : ViewModel() {
 
-    private val privateState = UiStateHandler(SampleState())
-    val publicState: UiStateOwner<SampleState> = privateState
+    private val privateState = UiStateHandler(SampleState2())
+    val publicState: UiStateOwner<SampleState2> = privateState
 
     fun updateText(newValue: String) {
         privateState.updateState { updater ->
