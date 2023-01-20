@@ -76,7 +76,7 @@ class XmlActivity : AppCompatActivity() {
     private fun setupCollectors() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.publicState.state.collectLatest { UiState ->
+                viewModel.state.collectLatest { UiState ->
                     when (UiState.stateType) {
                         UiStateType.Loading -> setUpLoadingState()
                         UiStateType.Content -> setUpContentState(UiState.stateData)

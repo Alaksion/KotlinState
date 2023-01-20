@@ -46,7 +46,7 @@ class ComposeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val state by viewModel.publicState.state.collectAsState()
+            val state by viewModel.state.collectAsState()
             Content(
                 state = state,
                 updateText = viewModel::updateText,
