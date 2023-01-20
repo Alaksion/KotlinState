@@ -9,7 +9,7 @@ Kotlin library designed to create a state management structure.
 
 // Add to your build.gradle.kts file
 dependencies {
-    val latestVersion = "1.0.0-alpha-01"
+    val latestVersion = "1.0.0-alpha-04"
 
     implementation("io.github.alaksion:ui-state:$latestVersion")
     implementation("io.github.alaksion:ui-event:$latestVersion")
