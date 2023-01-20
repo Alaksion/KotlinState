@@ -18,7 +18,7 @@ dependencies {
 ```
 
 ## Usage
-KotlinState is composed by two different API's to handle user interaction, `UiState` to serve as state class for views (usually a data class) and `UiEvent` to handle one shot events from a presenter to the consumer view.
+KotlinState is composed by two different API's to handle user interaction. `UiState` serves as a state class for views (usually a data class), and `UiEvent` handles one shot events from a presenter to the consumer view.
 
 # UiState
 UiState is a `StateFlow<T>` which holds a data class with 2 properties: `T` and `UiStateType`.
