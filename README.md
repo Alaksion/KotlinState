@@ -141,13 +141,16 @@ fun MyScreen() {
 ```
     
 ## Testing
-Both UiState and UiEvent behaviours are wrappend inside a StateFlow so testing these structures is nothing but a regular StateFlow test. Even though it's very simple to write tests for these structures keep in mind the following things that might lead to errors:
+Both UiState and UiEvent behaviours are wrappend inside a StateFlow so testing these structures is nothing but a regular StateFlow test. Even though it's very simple to write tests for these structures keep in mind the following things in the next topic that might lead to errors.
+
+StateFlow testing can be done manually but i recommned using [https://github.com/cashapp/turbine](Cash App Turbine) for convenience.
     
-# Ui State Testing
+### Ui State Testing
 When writing tests for Ui State notice that functions like `asyncUpdateState`, `updateState`, and `asyncCatching` might emit different amount of values depending on the parameters you set. Functions with `async` prefixes have a parameter named `isLoading`, when this parameter is set to true there will be an extra emission to UiState (to set the loading state). 
     
 Also notice that `UiState` update functions will always update UiStateType to `Content` at the end of the execution block, this will also cause an extra emission.
     
-# Ui Event Testing
+### Ui Event Testing
 Ui event doesn't launch any emissions internally except for the expected ones (adding events and consuming them).
+
 
