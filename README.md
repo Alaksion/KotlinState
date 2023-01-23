@@ -21,7 +21,7 @@ dependencies {
 KotlinState is composed by two different API's to handle user interaction. `UiState` serves as a state class for views (usually a data class), and `UiEvent` handles one shot events from a presenter to the consumer view.
 
 ## UiState
-UiState is a `StateFlow<UiState<T<>` which holds a data class with 2 properties: `T` and `UiStateType`. There are 2 recommended ways to use this class: using it as a class member and using it through delegation implementation.
+UiState is a `StateFlow<UiState<T>>` which holds a data class with 2 properties: `T` and `UiStateType`. There are 2 recommended ways to use this class: using it as a class member and using it through delegation implementation.
 
 ### Using UiState as class member
 ```kotlin
