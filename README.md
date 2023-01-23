@@ -119,7 +119,7 @@ internal class SamplePresenter() : UiEventOwnerSender<CreateAlbumEvents> by UiEv
 ```
 
 #### Consuming Ui Events
-The UiEvent queue stores events in a queue for them to be consumed sequentially (FIFO). This API works by adding an event to the queue and only when `UiEventOwner.consumeEvent` is called the current event will be properly dismissed. This happens to guarantee that every event in the queue, and to achieve this behavior, events must be manually assigned as consumed so they can be safely removed from the queue.
+The UiEvent queue stores events in a queue for them to be consumed sequentially (FIFO). This API works by adding an event to the queue and only when `UiEventOwner.consumeEvent` is called the current event will be properly dismissed. This happens to guarantee that every event in the queue is consumed, and to achieve this behavior, events must be manually assigned as consumed so they can be safely removed from the queue.
 
 `UiEventOwner` owns a convenience method to collect emmited events, process them, and automatically dispose them through a `consumeEvent` call. Use `UiEventOwner.receiveEvents` in your view class to use this default behavior. If custom behavior is needed before declaring an event as consumed both the event queue and the consumeEvent methods have public visibility.
 
