@@ -29,7 +29,7 @@ public interface UiEventOwner<T : UiEvent> {
      *
      * @param onEventReceived Callback to be executed when a new event is added to the queue
      */
-    suspend fun <T : UiEvent> UiEventOwner<T>.receiveEvents(
+    suspend fun receiveEvents(
         onEventReceived: (T) -> Unit
     ) {
         eventQueue.collectLatest { queue ->
