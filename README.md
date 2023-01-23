@@ -118,7 +118,7 @@ internal class SamplePresenter() : UiEventOwnerSender<CreateAlbumEvents> by UiEv
 
 ```
 
-### Consuming Ui Events
+#### Consuming Ui Events
 The UiEvent queue stores events in a queue for them to be consumed sequentially (FIFO). This API works by adding an event to the queue and only when `UiEventOwner.consumeEvent` is called the current event will be properly dismissed. This happens to guarantee that every event in the queue, and to achieve this behavior, events must be manually assigned as consumed so they can be safely removed from the queue.
 
 `UiEventOwner` owns a convenience method to collect emmited events, process them, and automatically dispose them through a `consumeEvent` call. Use `UiEventOwner.receiveEvents` in your view class to use this default behavior. If custom behavior is needed before declaring an event as consumed both the event queue and the consumeEvent methods have public visibility.
@@ -143,7 +143,7 @@ fun MyScreen() {
 ## Testing
 Both UiState and UiEvent behaviours are wrappend inside a StateFlow so testing these structures is nothing but a regular StateFlow test. Even though it's very simple to write tests for these structures keep in mind the following things in the next topic that might lead to errors.
 
-StateFlow testing can be done manually but i recommned using (https://github.com/cashapp/turbine)[Cash App Turbine] for convenience.
+StateFlow testing can be done manually but i recommned using [Cash App Turbine](https://github.com/cashapp/turbine) for convenience.
     
 ### Ui State Testing
 When writing tests for Ui State notice that functions like `asyncUpdateState`, `updateState`, and `asyncCatching` might emit different amount of values depending on the parameters you set. Functions with `async` prefixes have a parameter named `isLoading`, when this parameter is set to true there will be an extra emission to UiState (to set the loading state). 
