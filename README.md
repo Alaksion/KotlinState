@@ -11,8 +11,8 @@ Kotlin library designed to create a state management structure.
 dependencies {
     val latestVersion = "1.0.0-alpha-05"
 
-    implementation("io.github.alaksion:ui-state:$latestVersion")
-    implementation("io.github.alaksion:ui-event:$latestVersion")
+    implementation("io.github.alaksion:uistate:$latestVersion")
+    implementation("io.github.alaksion:uievent:$latestVersion")
 }
 
 ```
